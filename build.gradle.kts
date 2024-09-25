@@ -26,6 +26,8 @@ dependencies {
      * </dependency>
      */
     implementation("org.glassfish:jakarta.el:4.0.1")
+    testImplementation("org.assertj:assertj-core:3.26.3")
+
 
 }
 
