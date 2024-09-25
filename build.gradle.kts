@@ -13,6 +13,19 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
+    /**
+     * <dependency>
+     *    <groupId>javax.el</groupId>
+     *    <artifactId>javax.el-api</artifactId>
+     *    <version>2.2.4</version>
+     * </dependency>
+     * <dependency>
+     *    <groupId>org.glassfish.web</groupId>
+     *    <artifactId>javax.el</artifactId>
+     *    <version>2.2.4</version>
+     * </dependency>
+     */
+    implementation("org.glassfish:jakarta.el:4.0.1")
 
 }
 

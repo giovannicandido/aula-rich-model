@@ -12,4 +12,11 @@ public class ModelNotValidException extends RuntimeException {
     public List<ValidationError> getErrors() {
         return errors;
     }
+
+    @Override
+    public String toString() {
+        return "ModelNotValidException{" +
+                "errors=" + errors +
+                '}';
+    }
 }

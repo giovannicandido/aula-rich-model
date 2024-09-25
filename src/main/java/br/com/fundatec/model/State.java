@@ -1,12 +1,25 @@
 package br.com.fundatec.model;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class State {
     private final static int MAX_NAME_SIZE = 100;
+    @NotBlank(message = "Name cannot be blank")
+    @Size(max = MAX_NAME_SIZE, message = "Name cannot be greater then 100")
     private final String name;
+    @NotBlank
     private final String abbreviation;
+    @NotBlank
     private final String ibgeCode;
 
     public State(String name, String abbreviation, String ibgeCode) {
@@ -28,22 +41,14 @@ public class State {
     }
 
     public void validate() {
-        List<ValidationError> errors = new ArrayList<>();
-        if(name == null || name.isEmpty()) {
-            errors.add(new ValidationError("Name cannot be null", "name"));
-        }
+        // Tirar daqui
+        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        Validator validator = validatorFactory.getValidator();
 
-        if(name.length() > MAX_NAME_SIZE) {
-            errors.add(new ValidationError("Name is greater then max size", "name"));
-        }
-
-        if(abbreviation == null || abbreviation.isEmpty()) {
-            errors.add(new ValidationError("Abbreviation cannot be null", "abbreviation"));
-        }
-
-        if(ibgeCode == null || ibgeCode.isEmpty()) {
-            errors.add(new ValidationError("IbgeCode cannot be null", "ibgeCode"));
-        }
+        Set<ConstraintViolation<State>> constraintViolations = validator.validate(this);
+        List<ValidationError> errors = constraintViolations.stream().map(violation -> {
+            return new ValidationError(violation.getMessage(), violation.getPropertyPath().toString());
+        }).toList();
 
         if(!errors.isEmpty()) {
             throw new ModelNotValidException(errors);

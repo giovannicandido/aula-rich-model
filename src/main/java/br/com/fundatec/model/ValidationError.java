@@ -31,4 +31,12 @@ public class ValidationError {
     public int hashCode() {
         return Objects.hash(message, field);
     }
+
+    @Override
+    public String toString() {
+        return "ValidationError{" +
+                "message='" + message + '\'' +
+                ", field='" + field + '\'' +
+                '}';
+    }
 }
